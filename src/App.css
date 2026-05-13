@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+.myDiv{
+  background-color: antiquewhite;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
