@@ -1,0 +1,65 @@
+import React from 'react';
+import {Button,Layout,Avatar,Dropdown,Space } from 'antd';
+import {
+    MenuFoldOutlined,
+    MenuUnfoldOutlined,
+    DownOutlined,
+    SmileOutlined
+} from '@ant-design/icons';
+import './index.css';
+import { useDispatch } from 'react-redux';
+import {collapseMenu} from '../../../store/reducers/tab';
+
+const {Header} = Layout;
+
+const CommonHeader = ({collapsed})=>{
+    const dispatch = useDispatch();
+    function logOut(){
+
+    }
+    function handleClick(){
+        dispatch(collapseMenu());
+    }
+
+    const items = [
+      {
+        key: '1',
+        label: (
+          <a target="_blank" rel="noopener noreferrer" >
+            个人中心
+          </a>
+        ),
+      },
+      {
+        key: '2',
+        label: (
+          <a onClick={logOut} target="_blank" rel="noopener noreferrer" >
+            退出
+          </a>
+        ),
+        // icon: <DownOutlined />,
+        // disabled: true,
+      }
+    ];
+
+    return(
+        <Header className='header-container' >
+            <Button
+                type="text"
+                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                onClick={handleClick}
+                style={{
+                    fontSize: '16px',
+                    width: 64,
+                    height: 32,
+                    backgroundColor:'#fff'
+                }}
+            />
+            <Dropdown menu={{items}}>
+                <Avatar size={36} src={<img src={require("../../../assets/images/user.png")} alt="图片无法显示"/>}/>
+            </Dropdown>
+        </Header>
+    )
+}
+
+export default CommonHeader;

@@ -6,12 +6,12 @@ import User from "../pages/user";
 
 const routes = createBrowserRouter([
     {
-        path:"/management-platform",
+        path:"/",
         Component:Main,
         children:[
             //访问/management-platform重定向/management-platform/home
             {
-                path:"/management-platform",
+                path:"/",
                 element:<Navigate to='home' replace/>
             },
             {
@@ -32,5 +32,5 @@ const routes = createBrowserRouter([
             // }
         ]
     }
-]);
+],{basename:"/management-platform"});
 export default routes;
