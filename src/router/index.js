@@ -3,6 +3,8 @@ import Main from '../pages/main';
 import Home from '../pages/home';
 import Mall from "../pages/mall";
 import User from "../pages/user";
+import PageOne from "../pages/other/pageOne";
+import PageTwo from "../pages/other/pageTwo";
 
 const routes = createBrowserRouter([
     {
@@ -26,10 +28,19 @@ const routes = createBrowserRouter([
                 path:'user',
                 Component:User
             },
-            // {
-            //     path:'other',
-            //     Component:Home
-            // }
+            {
+                path:'other',
+                children:[
+                    {
+                        path:'pageOne',
+                        Component:PageOne
+                    },
+                    {
+                        path:"pageTwo",
+                        Component:PageTwo
+                    }
+                ]
+            }
         ]
     }
 ],{basename:"/management-platform"});

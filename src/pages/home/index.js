@@ -3,6 +3,8 @@ import './index.css';
 import { Row, Col, Card, Table } from "antd";
 import * as Icon from '@ant-design/icons';
 import { getData } from "../../api";
+import Echarts from '../components/Echarts';
+
 //table数据
 const columns = [
     {
@@ -65,12 +67,56 @@ const iconToElement = (name)=>React.createElement(Icon[name]);
 const Home = () => {
     const userImg = require('../../assets/images/user.png');
     const [tableData, setTableData] = useState([]);
+    const [lineData,setLineData] = useState(null);
+    const [barData,setBarData] = useState(null);
+    const [pieData,setPieData] = useState(null);
     useEffect(() => {
-        getData().then((res) => {
-            console.log(res);
-            setTableData(res.data.data.tableData)
+        //获取首页数据
+        getData().then(({data}) => {
+            const {tableData,orderData,userData,videoData} = data.data;
+            //处理折线图数据
+            const keys = Object.keys(orderData.data[0]);
+            const series=[];
+            keys.forEach(key=>{
+                series.push({
+                    name:key,
+                    type:"line",
+                    data:orderData.data.map((item)=>item[key])
+                })
+            });
+            console.log('处理后的折线图数据：',series);
+            setTableData(tableData);
+            setLineData({xData:orderData.date,series:series});
+            console.log("userData:",userData);
+            console.log("videoData",videoData);
+            setBarData({
+                xData:userData.map(item=>item.date),
+                series:[
+                    {
+                        name:'新增用户',
+                        type:'bar',
+                        data: userData.map(item=>item.new)                  
+                    },
+                    {
+                        name:'活跃用户',
+                        type:'bar',
+                        data: userData.map(item=>item.active)
+                    }
+                ]
+            });
+            setPieData({
+                series:[
+                    {
+                        type:'pie',
+                        data:videoData,
+                    }
+                ]
+            });
         });
     }, []);
+
+
+
 
     return (
         <Row className="home">
@@ -110,16 +156,13 @@ const Home = () => {
                         })
                     }
                 </div>
+                {lineData&&<Echarts style={{height:'280px'}} chartData={lineData}/>}
+                <div className="graph">
+                    {barData&&<Echarts style={{height:'240px',width:"50%"}} chartData={barData}/>}
+                    {pieData&&<Echarts style={{height:'260px',width:"50%"}} chartData={pieData} isAxisChart={false}/>}
+                </div>
             </Col>
         </Row>
-
-        // <div>
-        //     <div className="flex-test">
-        //         <span>段落 xingchen 10000000000000000000000000000</span>
-        //         <span>段落2</span>
-        //         {/* <p>段落3</p> */}
-        //     </div>
-        // </div>
     )
 }
 export default Home;

@@ -15,4 +15,5 @@ const tabsSlice = createSlice({
   }
 });
 export const {collapseMenu} = tabsSlice.actions;
+
 export default tabsSlice.reducer;

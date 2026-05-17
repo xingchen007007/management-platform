@@ -2,6 +2,7 @@ import React from 'react';
 import { Menu, Layout } from 'antd';
 import * as Icon from '@ant-design/icons';
 import MenuConfig from '../../../config';
+import { useNavigate } from 'react-router-dom';
 
 const { Sider } = Layout;
 
@@ -25,6 +26,10 @@ const items = MenuConfig.map((v)=>createItems(v));
 
 
 const CommonAside = ({collapsed}) => {
+    const navigate = useNavigate();
+    const selectMenu=({key})=>{
+        navigate(key);
+    }
     return (
         <Sider trigger={null} collapsed={collapsed}>
             <h3 className='app-name'>{collapsed?"后台":"通用后台管理系统"}</h3>
@@ -36,6 +41,7 @@ const CommonAside = ({collapsed}) => {
                 style={{
                     height: '100%'
                 }}
+                onClick={selectMenu}
                 // inlineCollapsed = {collapsed}
             />
         </Sider>
