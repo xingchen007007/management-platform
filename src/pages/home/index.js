@@ -84,11 +84,8 @@ const Home = () => {
                     data:orderData.data.map((item)=>item[key])
                 })
             });
-            console.log('处理后的折线图数据：',series);
             setTableData(tableData);
             setLineData({xData:orderData.date,series:series});
-            console.log("userData:",userData);
-            console.log("videoData",videoData);
             setBarData({
                 xData:userData.map(item=>item.date),
                 series:[
@@ -114,10 +111,6 @@ const Home = () => {
             });
         });
     }, []);
-
-
-
-
     return (
         <Row className="home">
             <Col span={8}>

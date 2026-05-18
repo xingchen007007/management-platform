@@ -1,7 +1,7 @@
 import Mock from 'mockjs'
 
 // get请求从config.url获取参数，post从config.body中获取参数
-function param2Obj (url) {
+function param2Obj(url) {
   const search = url.split('?')[1]
   if (!search) {
     return {}

@@ -1,7 +1,12 @@
-.user{
-    
-}
+
 .flex-box{
     display: flex;
     justify-content: space-between;
+    margin-bottom: 10px;
+}
+.option{
+    display: flex;
+}
+.editButton{
+    margin-right: 5px;
 }
