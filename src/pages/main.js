@@ -5,6 +5,7 @@ import CommonAside from './components/commonAside';
 import CommonHeader from "./components/commonHeader";
 import CommonTag from './components/commonTag';
 import { useSelector } from 'react-redux';
+import RouterAuth from '../router/routerAuth'; 
 const {  Content } = Layout;
 const Main = () => {
     const collapsed = useSelector(state=>state.tab.isCollapse);
@@ -13,24 +14,27 @@ const Main = () => {
     } = theme.useToken();
 
     return (
-        <Layout className='main-container'>
-            <CommonAside collapsed={collapsed}/>
-            <Layout>
-                <CommonHeader collapsed={collapsed}  />
-                <CommonTag/>
-                <Content
-                    style={{
-                        margin: '24px 16px',
-                        padding: 24,
-                        minHeight: 280,
-                        background: colorBgContainer,
-                        borderRadius: borderRadiusLG,
-                    }}
-                >
-                    <Outlet />
-                </Content>
+        <RouterAuth>
+
+            <Layout className='main-container'>
+                <CommonAside collapsed={collapsed}/>
+                <Layout>
+                    <CommonHeader collapsed={collapsed}  />
+                    <CommonTag/>
+                    <Content
+                        style={{
+                            margin: '24px 16px',
+                            padding: 24,
+                            minHeight: 280,
+                            background: colorBgContainer,
+                            borderRadius: borderRadiusLG,
+                        }}
+                    >
+                        <Outlet />
+                    </Content>
+                </Layout>
             </Layout>
-        </Layout>
+        </RouterAuth>
     );
 }
 export default Main;

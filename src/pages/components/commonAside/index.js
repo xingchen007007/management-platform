@@ -48,11 +48,6 @@ const CommonAside = ({ collapsed }) => {
         }));
         navigate(e.key);
     }
-    console.log('渲染CommonAside');
-    // useEffect(()=>{
-    //     navigate(currentMenu.path);
-    //     console.log('执行effect');
-    // },[currentMenu,navigate])
     return (
         <Sider trigger={null} collapsed={collapsed}>
             <h3 className='app-name'>{collapsed ? "后台" : "通用后台管理系统"}</h3>

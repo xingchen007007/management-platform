@@ -28,7 +28,6 @@ const tabsSlice = createSlice({
         state.tabList.push(val);
     },
     closeTag: (state, { payload: val }) => {
-      console.log('执行closeTag:');
       state.tabList = val.list;
       state.currentMenu = val.current;
     },

@@ -9,13 +9,17 @@ import {
 import './index.css';
 import { useDispatch } from 'react-redux';
 import {collapseMenu} from '../../../store/reducers/tab';
+import { useNavigate } from 'react-router-dom';
 
 const {Header} = Layout;
 
 const CommonHeader = ({collapsed})=>{
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     function logOut(){
-
+      //清除token
+      localStorage.removeItem('token');
+      navigate('/login');
     }
     function handleClick(){
         dispatch(collapseMenu());

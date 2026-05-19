@@ -15,8 +15,6 @@ const CommonTag = () => {
     const currentMenu = useSelector(state => state.tab.currentMenu);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
-    console.log('渲染CommonTag',tabList);
     const handleClose = (item, index) => {
         //需要在这里计算然后重定向
         //关闭tag，计算下一个选中tag，按照添加的顺序
@@ -42,7 +40,6 @@ const CommonTag = () => {
         dispatch(closeTag({ current:cur, list }));
     }
     const handleChange = (item) => {
-        // console.log(item);
         //需要修改current，然后进行跳转
         navigate(item.path);
         dispatch(setCurrentMenu(item));

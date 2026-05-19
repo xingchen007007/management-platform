@@ -1,4 +1,4 @@
-import { createBrowserRouter,Navigate } from "react-router-dom";
+import { createBrowserRouter, Navigate, redirect } from "react-router-dom";
 import Main from '../pages/main';
 import Home from '../pages/home';
 import Mall from "../pages/mall";
@@ -6,47 +6,58 @@ import User from "../pages/user";
 import PageOne from "../pages/other/pageOne";
 import PageTwo from "../pages/other/pageTwo";
 import Login from "../pages/login";
+import { getData } from "../api";
 
 const routes = createBrowserRouter([
     {
-        path:"/",
-        Component:Main,
-        children:[
+        path: "/",
+        Component: Main,
+        children: [
             //访问/management-platform重定向/management-platform/home
             {
-                path:"/",
-                element:<Navigate to='home' replace/>
+                path: "/",
+                element: <Navigate to='home' replace />
             },
             {
-                path:'home',
-                Component:Home
+                path: 'home',
+                Component: Home,
             },
             {
-                path:'mall',
-                Component:Mall
+                path: 'mall',
+                Component: Mall,
+                loader: async ({ params }) => {
+                    const data = await getData();
+                    console.log('mall的loder加载');
+                    // if(true){
+                    //     console.log('重定向');
+                    //     throw redirect('/home');
+                    // }
+
+                    return data;
+                }
             },
             {
-                path:'user',
-                Component:User
+                path: 'user',
+                Component: User
             },
             {
-                path:'other',
-                children:[
+                path: 'other',
+                children: [
                     {
-                        path:'pageOne',
-                        Component:PageOne
+                        path: 'pageOne',
+                        Component: PageOne
                     },
                     {
-                        path:"pageTwo",
-                        Component:PageTwo
+                        path: "pageTwo",
+                        Component: PageTwo
                     }
                 ]
             }
         ]
     },
     {
-        path:"/login",
-        Component:Login
+        path: "/login",
+        Component: Login
     }
-],{basename:"/management-platform"});
+], { basename: "/management-platform" });
 export default routes;
